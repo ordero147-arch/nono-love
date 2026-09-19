@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#211126">
+<title>إلى نونو ❤️</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri:wght@400;700&display=swap');
+:root{--pink:#ff8fb8;--deep:#21152d;--soft:#fff0f6;--text:#542d48}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#171126,#301b3e 45%,#fff0f6 100%);font-family:Cairo,sans-serif;color:#fff;overflow-x:hidden}
+section{min-height:100vh;padding:70px 20px;display:flex;align-items:center;justify-content:center;position:relative}
+.container{width:min(920px,100%);text-align:center}
+.hidden{display:none!important}
+#opening{min-height:100svh;flex-direction:column;background:radial-gradient(circle at center,#49305d 0%,#171126 65%)}
+.stars{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.star-dot{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;opacity:.8;animation:twinkle 2.5s infinite alternate}
+@keyframes twinkle{to{opacity:.15;transform:scale(.4)}}
+.magic-star{border:0;background:none;cursor:pointer;filter:drop-shadow(0 0 25px #ffd1e4);animation:float 3s ease-in-out infinite}
+.magic-star span{display:block;font-size:clamp(110px,24vw,190px);color:#ffd36e;text-shadow:0 0 25px #ff9fc5,0 0 60px #ffb9da}
+@keyframes float{50%{transform:translateY(-14px) rotate(4deg)}}
+h1,h2{font-family:Amiri,serif}
+h1{font-size:clamp(2.2rem,7vw,4.7rem);margin:10px 0;color:#ffe2ef}
+h2{font-size:clamp(2rem,5vw,3.2rem);color:#7e315b}
+.subtitle{color:#e7cde7;font-size:1rem}
+.card{background:#ffffffed;color:var(--text);border-radius:28px;padding:clamp(25px,5vw,55px);box-shadow:0 15px 60px #1c10262b}
+.message{font-family:Amiri,serif;font-size:clamp(1.35rem,3vw,1.8rem);line-height:2.15;text-align:right}
+.message p{margin:0 0 13px}
+#memories{background:linear-gradient(180deg,#fff0f6,#ffe0ec);color:var(--text)}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:15px;margin-top:25px}
+.photo{aspect-ratio:1/1;border:2px dashed #e6a4bd;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#a65d7d;background:#fff8fb;font-size:.95rem;padding:10px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+.upload-box{margin-top:28px;background:#fff;border-radius:24px;padding:24px;color:var(--text);box-shadow:0 8px 30px #bd6f9820}
+.btn{display:inline-block;border:0;border-radius:999px;padding:13px 26px;background:var(--pink);color:#35172c;font:700 1rem Cairo;cursor:pointer;box-shadow:0 7px 25px #0002}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.status{margin-top:12px;font-size:.9rem;color:#98617b;min-height:24px}
+.note{font-size:.82rem;color:#98617b;margin-top:10px}
+#counter{background:#fff0f6;color:var(--text);min-height:auto}
+.counter-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;direction:ltr}
+.unit{background:white;border-radius:18px;padding:18px 8px;box-shadow:0 8px 25px #bd6f9820}
+.unit strong{display:block;font-size:clamp(1.7rem,5vw,3rem);color:#d65f91}
+.unit span{font-size:.85rem;color:#98617b}
+.final{background:radial-gradient(circle,#5b2c62,#1b1028 70%);min-height:100svh}
+.final h2{color:#ffd7e8;font-size:clamp(2.4rem,8vw,5rem);line-height:1.5}
+.final p{color:#eac9e5;font-size:1.1rem}
+.heart{font-size:2rem;animation:float 2s infinite}
+footer{padding:20px;text-align:center;background:#1b1028;color:#cdb0ce;font-size:.8rem}
+@media(max-width:500px){.counter-grid{gap:6px}.unit{padding:14px 3px}.unit span{font-size:.7rem}.message{text-align:center}.gallery{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div id="opening">
+  <div class="stars" id="stars"></div>
+  <div class="container">
+    <div class="subtitle">عندي ليكي مفاجأة صغيرة ❤️</div>
+    <button class="magic-star" id="startBtn" aria-label="ابدئي الحكاية"><span>★</span></button>
+    <h1>دوسي ع النجمة يا نجمة ❤️</h1>
+    <p class="subtitle">اضغطي عليها عشان نبدأ حكايتنا ✨</p>
+  </div>
+</div>
+
+<main id="site" class="hidden">
+<section>
+  <div class="container card">
+    <div class="heart">💌</div>
+    <h2>من قلبي ليكي يا نونو ❤️</h2>
+    <div class="message">
+      <p>ربنا يعلم وحده بحبك إزاي،</p>
+      <p>ومن أول ما دخلتي حياتي وإنتي غيرتي حاجات كتير أوي فيا وفي تفكيري.</p>
+      <p>ولأول مرة أفكر جد كده، لأنك حقيقي تستاهلي الدنيا وما فيها.</p>
+      <p>وأوعدك عمري ما هندمك أبدًا.</p>
+      <p>وربنا يقدرني وأخليكي أسعد واحدة في الدنيا.</p>
+      <p>وأنا واثق إني قادر أعمل ده. ❤️</p>
+    </div>
+  </div>
+</section>
+
+<section id="memories">
+  <div class="container">
+    <h2>ذكرياتنا سوا 📸</h2>
+    <p>هنعمل أحلى ذكريات سوا ❤️</p>
+
+    <div class="upload-box">
+      <label for="photoInput" class="btn">➕ أضيفي ذكرى جديدة ❤️</label>
+      <input id="photoInput" type="file" accept="image/*" multiple hidden>
+      <div id="uploadStatus" class="status"></div>
+    </div>
+
+    <div class="gallery" id="gallery">
+      <div class="photo">📸 أول ذكرى لينا</div>
+      <div class="photo">❤️ صورة جميلة لينا</div>
+      <div class="photo">✨ أجمل لحظة</div>
+      <div class="photo">🥹 ذكرى مش هننساها</div>
+    </div>
+  </div>
+</section>
+
+<section id="counter">
+  <div class="container">
+    <h2>من يوم ما عرفتك ❤️</h2>
+    <p>أحلى <strong id="daysLabel">0</strong> يوم في حياتي ❤️</p>
+    <div class="counter-grid">
+      <div class="unit"><strong id="days">0</strong><span>يوم</span></div>
+      <div class="unit"><strong id="hours">0</strong><span>ساعة</span></div>
+      <div class="unit"><strong id="minutes">0</strong><span>دقيقة</span></div>
+      <div class="unit"><strong id="seconds">0</strong><span>ثانية</span></div>
+    </div>
+    <p style="margin-top:25px">وكل ثانية معاكي بتفرق ❤️</p>
+  </div>
+</section>
+
+<section class="final">
+  <div class="container">
+    <div class="heart">💖</div>
+    <p>وفي الآخر، عايز أقولك حاجة...</p>
+    <h2>هتجوزك يعني هتجوزك 😂❤️<br>مش هضيعك من إيدي ❤️❤️</h2>
+    <p>دي مش مجرد جملة... دي وعد مني ليكي 🥹💍</p>
+  </div>
+</section>
+<footer>اتعمل بحب مخصوص لنونو ❤️</footer>
+</main>
+
+<script>
+const startDate = new Date('2026-07-03T18:14:00');
+
+const SUPABASE_URL = 'https://ctlwhkidyhcxckwsmart.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_bjIdP8FjXQFTHZHLxP7o5A_25VMqAPO';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const BUCKET = 'memories';
+
+const startBtn = document.getElementById('startBtn');
+startBtn.addEventListener('click',()=>{
+  document.getElementById('opening').classList.add('hidden');
+  document.getElementById('site').classList.remove('hidden');
+  window.scrollTo(0,0);
+});
+
+for(let i=0;i<90;i++){
+  const s=document.createElement('i');
+  s.className='star-dot';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.animationDelay=Math.random()*3+'s';
+  document.getElementById('stars').appendChild(s);
+}
+
+function updateCounter(){
+  const now=new Date();
+  let diff=Math.max(0,now-startDate);
+  const day=Math.floor(diff/86400000); diff%=86400000;
+  const hour=Math.floor(diff/3600000); diff%=3600000;
+  const minute=Math.floor(diff/60000); diff%=60000;
+  const second=Math.floor(diff/1000);
+  document.getElementById('days').textContent=day;
+  document.getElementById('daysLabel').textContent=day;
+  document.getElementById('hours').textContent=hour;
+  document.getElementById('minutes').textContent=minute;
+  document.getElementById('seconds').textContent=second;
+}
+updateCounter();
+setInterval(updateCounter,1000);
+
+const gallery = document.getElementById('gallery');
+const uploadStatus = document.getElementById('uploadStatus');
+const photoInput = document.getElementById('photoInput');
+
+function renderPhoto(url){
+  const div=document.createElement('div');
+  div.className='photo';
+  const img=document.createElement('img');
+  img.src=url;
+  img.alt='ذكرى';
+  img.loading='lazy';
+  div.appendChild(img);
+  gallery.prepend(div);
+}
+
+async function loadMemories(){
+  const { data, error } = await supabaseClient
+    .storage
+    .from(BUCKET)
+    .list('', { limit: 200, sortBy: { column: 'created_at', order: 'asc' } });
+
+  if(error){
+    console.error(error);
+    return;
+  }
+
+  gallery.innerHTML='';
+  (data || []).filter(item => item && item.name).forEach(item => {
+    const { data: publicData } = supabaseClient.storage.from(BUCKET).getPublicUrl(item.name);
+    if(publicData?.publicUrl) renderPhoto(publicData.publicUrl);
+  });
+}
+
+photoInput.addEventListener('change', async (e)=>{
+  const files=[...e.target.files].filter(file=>file.type.startsWith('image/'));
+  if(!files.length) return;
+
+  uploadStatus.textContent='جاري رفع الصور ❤️';
+  photoInput.disabled=true;
+
+  let uploaded=0;
+  for(const file of files){
+    const ext=(file.name.split('.').pop() || 'jpg').toLowerCase();
+    const safeExt=ext.replace(/[^a-z0-9]/g,'') || 'jpg';
+    const path=`${Date.now()}-${crypto.randomUUID()}.${safeExt}`;
+
+    const { error } = await supabaseClient.storage.from(BUCKET).upload(path, file, {
+      contentType:file.type,
+      upsert:false,
+      cacheControl:'3600'
+    });
+
+    if(!error) uploaded++;
+    else console.error(error);
+  }
+
+  photoInput.disabled=false;
+  photoInput.value='';
+
+  if(uploaded){
+    uploadStatus.textContent=`تمت إضافة ${uploaded} صورة ❤️`;
+    await loadMemories();
+  }else{
+    uploadStatus.textContent='حصلت مشكلة في رفع الصور.';
+  }
+});
+
+loadMemories();
+</script>
+</body>
+</html>
